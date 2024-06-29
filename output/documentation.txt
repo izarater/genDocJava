@@ -1,0 +1,129 @@
+Documentación de Código Java
+
+Información General del Proyecto
+Nombre del Proyecto: sample
+Descripción: Documentación generada para el archivo output/documentation.txt
+
+Estructura del Código
+
+Clase: UserManagementSystem2
+  Descripción: /**
+ * Clase principal que contiene el punto de entrada al sistema de gestión de usuarios.
+ */
+  Campos:
+  Métodos:
+    Nombre: main
+    Descripción: No hay descripción.
+    Modificadores: public static
+    Parámetros: String[]args
+
+Clase: User
+  Descripción: /**
+ * Clase que representa a un usuario en el sistema.
+ */
+  Campos:
+    Nombre: id
+    Descripción: /**
+     * Identificador único del usuario.
+     */
+    Modificadores: private
+    Nombre: name
+    Descripción: /**
+     * Nombre del usuario.
+     */
+    Modificadores: private
+    Nombre: email
+    Descripción: /**
+     * Dirección de correo electrónico del usuario.
+     */
+    Modificadores: private
+  Métodos:
+    Nombre: getId
+    Descripción: /**
+     * Obtiene el identificador único del usuario.
+     * @return El identificador único del usuario.
+     */
+    Modificadores: public
+    Parámetros: Sin parámetros
+    Nombre: getName
+    Descripción: /**
+     * Obtiene el nombre del usuario.
+     * @return El nombre del usuario.
+     */
+    Modificadores: public
+    Parámetros: Sin parámetros
+    Nombre: setName
+    Descripción: /**
+     * Establece el nombre del usuario.
+     * @param name El nuevo nombre para el usuario.
+     */
+    Modificadores: public
+    Parámetros: Stringname
+    Nombre: getEmail
+    Descripción: /**
+     * Obtiene la dirección de correo electrónico del usuario.
+     * @return La dirección de correo electrónico del usuario.
+     */
+    Modificadores: public
+    Parámetros: Sin parámetros
+    Nombre: setEmail
+    Descripción: /**
+     * Establece la dirección de correo electrónico del usuario.
+     * @param email La nueva dirección de correo electrónico del usuario.
+     */
+    Modificadores: public
+    Parámetros: Stringemail
+
+Clase: AdminUser
+  Descripción: /**
+ * Clase que representa a un usuario administrador, que extiende a la clase User.
+ */
+  Campos:
+    Nombre: adminLevel
+    Descripción: /**
+     * Nivel de administración del usuario.
+     */
+    Modificadores: private
+  Métodos:
+    Nombre: getAdminLevel
+    Descripción: /**
+     * Obtiene el nivel de administración del usuario.
+     * @return El nivel de administración del usuario.
+     */
+    Modificadores: public
+    Parámetros: Sin parámetros
+    Nombre: setAdminLevel
+    Descripción: /**
+     * Establece el nivel de administración del usuario.
+     * @param adminLevel El nuevo nivel de administración para el usuario.
+     */
+    Modificadores: public
+    Parámetros: StringadminLevel
+
+Clase: UserService
+  Descripción: /**
+ * Clase de servicio que gestiona las operaciones con los usuarios.
+ */
+  Campos:
+    Nombre: users
+    Descripción: /**
+     * Colección de usuarios gestionada por el servicio.
+     */
+    Modificadores: private
+  Métodos:
+    Nombre: addUser
+    Descripción: /**
+     * Añade un nuevo usuario al repositorio.
+     * @param user El usuario a añadir.
+     */
+    Modificadores: @Override public
+    Parámetros: Useruser
+    Nombre: getUserInfo
+    Descripción: /**
+     * Obtiene la información de un usuario basado en su identificador.
+     * @param userId El identificador del usuario.
+     * @return La información del usuario.
+     */
+    Modificadores: @Override public
+    Parámetros: StringuserId
+
