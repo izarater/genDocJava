@@ -9,6 +9,7 @@ public class ClassInfo {
     private List<String> relatedClasses = new ArrayList<>();
     private String superClass;
     private List<String> interfaces = new ArrayList<>();
+    private List<String> dependencies = new ArrayList<>();
 
     public ClassInfo(String className, String classJavadoc) {
         this.className = className;
@@ -71,6 +72,14 @@ public class ClassInfo {
         this.interfaces = interfaces;
     }
 
+    public List<String> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<String> dependencies) {
+        this.dependencies = dependencies;
+    }
+
     public void addMethod(MethodInfo method) {
         methods.add(method);
     }
@@ -85,5 +94,9 @@ public class ClassInfo {
 
     public void addInterface(String interfaceName) {
         interfaces.add(interfaceName);
+    }
+
+    public void addDependency(String dependency) {
+        dependencies.add(dependency);
     }
 }

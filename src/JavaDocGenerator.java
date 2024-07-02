@@ -58,7 +58,6 @@ public class JavaDocGenerator {
     }
 
     public static void generateHTMLDocumentation(Map<String, ClassInfo> classInfoMap, String inputFilePath) throws IOException {
-        // Derivar el nombre del archivo de salida del nombre del archivo de entrada
         String outputFileName = "output/documentation.html";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
@@ -91,51 +90,53 @@ public class JavaDocGenerator {
             writer.write("<a href='#code-structure'>Estructura del Codigo</a>");
             writer.write("</div>");
 
-            // Información General del Proyecto
             writer.write("<h2 id='project-info'>Informacion General del Proyecto</h2>");
             writer.write("<ul>");
             writer.write("<li><strong>Nombre del Proyecto:</strong> " + extractProjectName(inputFilePath) + "</li>");
             writer.write("<li><strong>Descripcion:</strong> " + extractProjectDescription(inputFilePath) + "</li>");
             writer.write("</ul>");
 
-            // Incluir el diagrama de clases en la documentación
             writer.write("<h2 id='class-diagram'>Diagrama de Clases</h2>");
-            writer.write("<div class='class-diagram'><img src='classDiagram.png' alt='Diagrama de Clases'></div>");
+            writer.write("<div class='class-diagram'>");
+            writer.write("<img src='classDiagram.png' alt='Diagrama de Clases'>");
+            writer.write("</div>");
 
-            // Incluir el diagrama de secuencia en la documentación
             writer.write("<h2 id='sequence-diagram'>Diagrama de Secuencia</h2>");
-            writer.write("<div class='class-diagram'><img src='sequenceDiagram.png' alt='Diagrama de Secuencia'></div>");
+            writer.write("<div class='sequence-diagram'>");
+            writer.write("<img src='sequenceDiagram.png' alt='Diagrama de Secuencia'>");
+            writer.write("</div>");
 
-            // Incluir el diagrama de actividad en la documentación
             writer.write("<h2 id='activity-diagram'>Diagrama de Actividad</h2>");
-            writer.write("<div class='class-diagram'><img src='activityDiagram.png' alt='Diagrama de Actividad'></div>");
+            writer.write("<div class='activity-diagram'>");
+            writer.write("<img src='activityDiagram.png' alt='Diagrama de Actividad'>");
+            writer.write("</div>");
 
-            // Estructura del Código
             writer.write("<h2 id='code-structure'>Estructura del Codigo</h2>");
             for (String className : classInfoMap.keySet()) {
                 ClassInfo classInfo = classInfoMap.get(className);
                 writer.write("<h3>Clase: " + className + "</h3>");
                 writer.write("<p><strong>Descripcion:</strong> " + (classInfo.getClassJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + classInfo.getClassJavadoc() + "</pre>") + "</p>");
+                writer.write("<p><strong>Dependencias:</strong> " + String.join(", ", classInfo.getDependencies()) + "</p>");
 
-                // Campos
                 if (!classInfo.getFields().isEmpty()) {
                     writer.write("<h4>Campos</h4>");
                     for (FieldInfo field : classInfo.getFields()) {
                         writer.write("<p><strong>Nombre:</strong> " + field.getFieldName() + "</p>");
-                        writer.write("<p><strong>Descripcion:</strong> " + (field.getFieldJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + field.getFieldJavadoc() + "</pre>") + "</p>");
                         writer.write("<p><strong>Tipo:</strong> " + field.getFieldType() + "</p>");
+                        writer.write("<p><strong>Descripcion:</strong> " + (field.getFieldJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + field.getFieldJavadoc() + "</pre>") + "</p>");
                         writer.write("<p><strong>Modificadores:</strong> " + field.getFieldModifiers() + "</p>");
                     }
                 }
 
-                // Métodos
                 if (!classInfo.getMethods().isEmpty()) {
                     writer.write("<h4>Metodos</h4>");
                     for (MethodInfo method : classInfo.getMethods()) {
                         writer.write("<p><strong>Nombre:</strong> " + method.getMethodName() + "</p>");
+                        writer.write("<p><strong>Tipo de Retorno:</strong> " + method.getReturnType() + "</p>");
                         writer.write("<p><strong>Descripcion:</strong> " + (method.getMethodJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + method.getMethodJavadoc() + "</pre>") + "</p>");
                         writer.write("<p><strong>Modificadores:</strong> " + method.getMethodModifiers() + "</p>");
                         writer.write("<p><strong>Parametros:</strong> " + String.join(", ", method.getParameters()) + "</p>");
+                        writer.write("<p><strong>Descripcion de Parametros:</strong> " + String.join(", ", method.getParameterDescriptions()) + "</p>");
                     }
                 }
             }
@@ -145,6 +146,7 @@ public class JavaDocGenerator {
             writer.write("</html>");
         }
     }
+
 
     public static void generateTextDocumentation(Map<String, ClassInfo> classInfoMap, String outputFileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {

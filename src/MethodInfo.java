@@ -6,12 +6,16 @@ public class MethodInfo {
     private String methodJavadoc;
     private List<String> parameters = new ArrayList<>();
     private String methodModifiers;
+    private String returnType;
+    private List<String> parameterDescriptions = new ArrayList<>();
 
-    public MethodInfo(String methodName, String methodJavadoc, String methodModifiers, List<String> parameters) {
+    public MethodInfo(String methodName, String methodJavadoc, String methodModifiers, List<String> parameters, String returnType, List<String> parameterDescriptions) {
         this.methodName = methodName;
         this.methodJavadoc = methodJavadoc;
         this.methodModifiers = methodModifiers;
         this.parameters = parameters;
+        this.returnType = returnType;
+        this.parameterDescriptions = parameterDescriptions;
     }
 
     public String getMethodName() {
@@ -48,5 +52,21 @@ public class MethodInfo {
 
     public void setMethodModifiers(String methodModifiers) {
         this.methodModifiers = methodModifiers;
+    }
+
+    public String getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(String returnType) {
+        this.returnType = returnType;
+    }
+
+    public List<String> getParameterDescriptions() {
+        return parameterDescriptions;
+    }
+
+    public void setParameterDescriptions(List<String> parameterDescriptions) {
+        this.parameterDescriptions = parameterDescriptions;
     }
 }

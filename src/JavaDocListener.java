@@ -1,7 +1,6 @@
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.TokenStream;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.*;
 import java.util.*;
 
@@ -16,13 +15,11 @@ public class JavaDocListener extends Java8BaseListener {
 
     @Override
     public void enterClassDeclaration(Java8Parser.ClassDeclarationContext ctx) {
-        // Verifica que estás accediendo al nombre de la clase correctamente
         String className = ctx.normalClassDeclaration().Identifier().getText();
         String classJavadoc = getJavadoc(ctx);
         currentClass = new ClassInfo(className, classJavadoc);
         classInfoMap.put(className, currentClass);
 
-        // Captura la superclase y las interfaces implementadas
         if (ctx.normalClassDeclaration().superclass() != null) {
             String superClass = ctx.normalClassDeclaration().superclass().classType().getText();
             currentClass.setSuperClass(superClass);
@@ -40,7 +37,6 @@ public class JavaDocListener extends Java8BaseListener {
 
     @Override
     public void enterFieldDeclaration(Java8Parser.FieldDeclarationContext ctx) {
-        // Verifica que estás accediendo al nombre del campo y a sus modificadores correctamente
         String fieldName = ctx.variableDeclaratorList().variableDeclarator(0).variableDeclaratorId().Identifier().getText();
         String fieldModifiers = ctx.fieldModifier().stream()
                 .map(modifier -> modifier.getText())
@@ -51,47 +47,44 @@ public class JavaDocListener extends Java8BaseListener {
         FieldInfo fieldInfo = new FieldInfo(fieldName, fieldJavadoc, fieldType, fieldModifiers);
         if (currentClass != null) {
             currentClass.addField(fieldInfo);
+            currentClass.addDependency(fieldType);
         }
     }
 
     @Override
     public void enterMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
-        // Verifica que estás accediendo al nombre del método y a sus modificadores correctamente
         String methodName = ctx.methodHeader().methodDeclarator().Identifier().getText();
         String methodModifiers = ctx.methodModifier().stream()
                 .map(modifier -> modifier.getText())
                 .reduce((a, b) -> a + " " + b)
                 .orElse("");
         List<String> parameters = new ArrayList<>();
-        if (ctx.methodHeader().methodDeclarator().formalParameterList() != null &&
-                ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters() != null) {
-            for (Java8Parser.FormalParameterContext paramCtx : ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters().formalParameter()) {
-                parameters.add(paramCtx.variableDeclaratorId().Identifier().getText());
+        List<String> parameterDescriptions = new ArrayList<>();
+        if (ctx.methodHeader().methodDeclarator().formalParameterList() != null) {
+            if (ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters() != null) {
+                for (Java8Parser.FormalParameterContext paramCtx : ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters().formalParameter()) {
+                    parameters.add(paramCtx.variableDeclaratorId().Identifier().getText() + ": " + paramCtx.unannType().getText());
+                    parameterDescriptions.add(getJavadoc(paramCtx));
+                    currentClass.addDependency(paramCtx.unannType().getText());
+                }
             }
         }
+        String returnType = ctx.methodHeader().result().getText();
         String methodJavadoc = getJavadoc(ctx);
-        MethodInfo methodInfo = new MethodInfo(methodName, methodJavadoc, methodModifiers, parameters);
+        MethodInfo methodInfo = new MethodInfo(methodName, methodJavadoc, methodModifiers, parameters, returnType, parameterDescriptions);
         if (currentClass != null) {
             currentClass.addMethod(methodInfo);
+            currentClass.addDependency(returnType);
         }
     }
 
-    /**
-     * Extrae el comentario JavaDoc anterior a un contexto dado.
-     * @param ctx El contexto de la regla parser.
-     * @return El comentario JavaDoc o una cadena vacía si no hay JavaDoc.
-     */
     private String getJavadoc(ParserRuleContext ctx) {
         Token startToken = ctx.getStart();
         int startIndex = startToken.getTokenIndex();
-
-        // Obtiene los tokens del canal oculto (canal 1)
         List<Token> hiddenTokens = tokens.getHiddenTokensToLeft(startIndex, 1);
-
         if (hiddenTokens != null) {
             for (Token token : hiddenTokens) {
                 String text = token.getText();
-                // Revisa si el comentario es un JavaDoc (/** ... */)
                 if (text.startsWith("/**")) {
                     return text;
                 }
