@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class MethodInfo {
     private String methodName;
     private String methodJavadoc;
-    private String methodModifiers;  // Añadido para capturar los modificadores de acceso y tipo
-    private String parameters;       // Añadido para capturar los parámetros del método
+    private List<String> parameters = new ArrayList<>();
+    private String methodModifiers;
 
-    public MethodInfo(String methodName, String methodJavadoc, String methodModifiers, String parameters) {
+    public MethodInfo(String methodName, String methodJavadoc, String methodModifiers, List<String> parameters) {
         this.methodName = methodName;
         this.methodJavadoc = methodJavadoc;
         this.methodModifiers = methodModifiers;
@@ -15,16 +18,35 @@ public class MethodInfo {
         return methodName;
     }
 
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
     public String getMethodJavadoc() {
         return methodJavadoc;
+    }
+
+    public void setMethodJavadoc(String methodJavadoc) {
+        this.methodJavadoc = methodJavadoc;
+    }
+
+    public List<String> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<String> parameters) {
+        this.parameters = parameters;
+    }
+
+    public void addParameter(String parameter) {
+        parameters.add(parameter);
     }
 
     public String getMethodModifiers() {
         return methodModifiers;
     }
 
-    public String getParameters() {
-        return parameters;
+    public void setMethodModifiers(String methodModifiers) {
+        this.methodModifiers = methodModifiers;
     }
 }
-

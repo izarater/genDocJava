@@ -32,7 +32,8 @@ public class JavaDocListener extends Java8BaseListener {
                 .reduce((a, b) -> a + " " + b)
                 .orElse("");
         String fieldJavadoc = getJavadoc(ctx);
-        FieldInfo fieldInfo = new FieldInfo(fieldName, fieldJavadoc, fieldModifiers);
+        String fieldType = ctx.unannType().getText();
+        FieldInfo fieldInfo = new FieldInfo(fieldName, fieldJavadoc, fieldType, fieldModifiers);
         if (currentClass != null) {
             currentClass.addField(fieldInfo);
         }
@@ -46,8 +47,13 @@ public class JavaDocListener extends Java8BaseListener {
                 .map(modifier -> modifier.getText())
                 .reduce((a, b) -> a + " " + b)
                 .orElse("");
-        String parameters = ctx.methodHeader().methodDeclarator().formalParameterList() == null ? "Sin parámetros" :
-                ctx.methodHeader().methodDeclarator().formalParameterList().getText();
+        List<String> parameters = new ArrayList<>();
+        if (ctx.methodHeader().methodDeclarator().formalParameterList() != null &&
+                ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters() != null) {
+            for (Java8Parser.FormalParameterContext paramCtx : ctx.methodHeader().methodDeclarator().formalParameterList().formalParameters().formalParameter()) {
+                parameters.add(paramCtx.variableDeclaratorId().Identifier().getText());
+            }
+        }
         String methodJavadoc = getJavadoc(ctx);
         MethodInfo methodInfo = new MethodInfo(methodName, methodJavadoc, methodModifiers, parameters);
         if (currentClass != null) {
@@ -78,10 +84,8 @@ public class JavaDocListener extends Java8BaseListener {
         }
         return "";
     }
+
     public Map<String, ClassInfo> getClassInfoMap() {
         return classInfoMap;
     }
 }
-
-
-

@@ -1,5 +1,7 @@
 package com.example.usermanagement;
 
+import java.util.*;
+
 /**
  * Clase principal que contiene el punto de entrada al sistema de gestión de usuarios.
  */
@@ -9,12 +11,18 @@ public class UserManagementSystem2 {
         User user = new User("1", "John Doe", "john.doe@example.com");
         AdminUser admin = new AdminUser("2", "Admin User", "admin@example.com", "SuperAdmin");
         UserService userService = new UserService();
+        AuditService auditService = new AuditService();
 
         userService.addUser(user);
         userService.addUser(admin);
 
         System.out.println(userService.getUserInfo("1"));
         System.out.println(userService.getUserInfo("2"));
+
+        auditService.logAction("User 1 logged in.");
+        auditService.logAction("Admin 2 performed maintenance.");
+
+        System.out.println(auditService.getLogs());
     }
 }
 
@@ -144,6 +152,12 @@ interface UserRepository {
      * @return La información del usuario.
      */
     String getUserInfo(String userId);
+
+    /**
+     * Elimina un usuario del repositorio.
+     * @param userId El identificador del usuario a eliminar.
+     */
+    void removeUser(String userId);
 }
 
 /**
@@ -177,5 +191,48 @@ class UserService implements UserRepository {
         } else {
             return "User not found";
         }
+    }
+
+    /**
+     * Elimina un usuario del repositorio.
+     * @param userId El identificador del usuario a eliminar.
+     */
+    @Override
+    public void removeUser(String userId) {
+        users.remove(userId);
+    }
+
+    /**
+     * Obtiene la lista de todos los usuarios.
+     * @return La lista de todos los usuarios.
+     */
+    public List<User> getAllUsers() {
+        return new ArrayList<>(users.values());
+    }
+}
+
+/**
+ * Clase de servicio que gestiona el registro de auditorías.
+ */
+class AuditService {
+    /**
+     * Lista de registros de auditoría.
+     */
+    private List<String> auditLogs = new ArrayList<>();
+
+    /**
+     * Registra una acción en el sistema.
+     * @param action La acción a registrar.
+     */
+    public void logAction(String action) {
+        auditLogs.add(action);
+    }
+
+    /**
+     * Obtiene todos los registros de auditoría.
+     * @return La lista de registros de auditoría.
+     */
+    public List<String> getLogs() {
+        return auditLogs;
     }
 }

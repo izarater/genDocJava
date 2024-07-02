@@ -6,11 +6,51 @@ public class ClassInfo {
     private String classJavadoc;
     private List<MethodInfo> methods = new ArrayList<>();
     private List<FieldInfo> fields = new ArrayList<>();
-    private List<String> relatedClasses = new ArrayList<>(); // Añadir este campo
+    private List<String> relatedClasses = new ArrayList<>();
 
     public ClassInfo(String className, String classJavadoc) {
         this.className = className;
         this.classJavadoc = classJavadoc;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getClassJavadoc() {
+        return classJavadoc;
+    }
+
+    public void setClassJavadoc(String classJavadoc) {
+        this.classJavadoc = classJavadoc;
+    }
+
+    public List<MethodInfo> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<MethodInfo> methods) {
+        this.methods = methods;
+    }
+
+    public List<FieldInfo> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<FieldInfo> fields) {
+        this.fields = fields;
+    }
+
+    public List<String> getRelatedClasses() {
+        return relatedClasses;
+    }
+
+    public void setRelatedClasses(List<String> relatedClasses) {
+        this.relatedClasses = relatedClasses;
     }
 
     public void addMethod(MethodInfo method) {
@@ -23,25 +63,5 @@ public class ClassInfo {
 
     public void addRelatedClass(String relatedClass) {
         relatedClasses.add(relatedClass);
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public String getClassJavadoc() {
-        return classJavadoc;
-    }
-
-    public List<MethodInfo> getMethods() {
-        return methods;
-    }
-
-    public List<FieldInfo> getFields() {
-        return fields;
-    }
-
-    public List<String> getRelatedClasses() {
-        return relatedClasses;
     }
 }
