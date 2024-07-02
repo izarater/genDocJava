@@ -1,10 +1,27 @@
 @startuml
 start
-:Inicio;
-:Login;
-:Seleccionar Usuario;
-:Actualizar Información;
-:Guardar Cambios;
-:Fin;
+:userService.addUser(user);;
+:userService.addUser(admin);;
+:System.out.println(userService.getUserInfo("1"));;
+:System.out.println(userService.getUserInfo("2"));;
+:auditService.logAction("User 1 logged in.");;
+:auditService.logAction("Admin 2 performed maintenance.");;
+:System.out.println(auditService.getLogs());;
+:returnid;;
+:returnname;;
+:this.name=name;;
+:returnemail;;
+:this.email=email;;
+:returnadminLevel;;
+:this.adminLevel=adminLevel;;
+:users.put(user.getId(),user);;
+:if(user!=null){return"User ID: "+user.getId()+", Name: "+user.getName()+", Email: "+user.getEmail();}else{return"User not found";};
+:return"User ID: "+user.getId()+", Name: "+user.getName()+", Email: "+user.getEmail();;
+:{return"User not found";};
+:return"User not found";;
+:users.remove(userId);;
+:returnnewArrayList<>(users.values());;
+:auditLogs.add(action);;
+:returnauditLogs;;
 stop
 @enduml

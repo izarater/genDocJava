@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.*;
 
 public class JavaDocGenerator {
@@ -49,16 +50,28 @@ public class JavaDocGenerator {
         DiagramGenerator.generateClassDiagram(classInfoMap, "output/classDiagram.png");
 
         // Generar un diagrama de secuencia
+        //List<SequenceEvent> sequenceEvents = extractor.getSequenceEvents();
+        //SequenceDiagramGenerator.generateSequenceDiagram(sequenceEvents, "output/sequenceDiagram");
+        // Obtener la lista de eventos de secuencia del listener y generar el diagrama
+        //SequenceDiagramGenerator.generateSequenceDiagram(extractor.getSequenceEvents(), "output/sequenceDiagram");
         generateSequenceDiagram();
 
         // Generar un diagrama de actividad
-        generateActivityDiagram();
+        List<ActivityStep> activitySteps = extractor.getActivitySteps();
+        ActivityDiagramGenerator.generateActivityDiagram(activitySteps, "output/activityDiagram");
+
+        // Generar reporte de cobertura de código
+        generateCoverageReport();
+
+        // Exportar la documentación a PDF
+        exportToPDF("output/documentation.html", "output/documentation.pdf");
 
         System.out.println("Documentación y diagramas generados exitosamente.");
     }
 
     public static void generateHTMLDocumentation(Map<String, ClassInfo> classInfoMap, String inputFilePath) throws IOException {
         String outputFileName = "output/documentation.html";
+        String coverageReportPath = "output/jacoco-report/index.html";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
             writer.write("<!DOCTYPE html>");
@@ -74,7 +87,7 @@ public class JavaDocGenerator {
             writer.write("li { margin: 5px 0; }");
             writer.write("pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }");
             writer.write(".container { max-width: 900px; margin: 0 auto; }");
-            writer.write(".class-diagram { text-align: center; }");
+            writer.write(".class-diagram, .sequence-diagram, .activity-diagram { text-align: center; }");
             writer.write(".nav { margin-bottom: 20px; }");
             writer.write(".nav a { margin-right: 10px; }");
             writer.write("</style>");
@@ -88,6 +101,7 @@ public class JavaDocGenerator {
             writer.write("<a href='#sequence-diagram'>Diagrama de Secuencia</a>");
             writer.write("<a href='#activity-diagram'>Diagrama de Actividad</a>");
             writer.write("<a href='#code-structure'>Estructura del Codigo</a>");
+            writer.write("<a href='#coverage-report'>Reporte de Cobertura</a>");
             writer.write("</div>");
 
             writer.write("<h2 id='project-info'>Informacion General del Proyecto</h2>");
@@ -116,7 +130,7 @@ public class JavaDocGenerator {
                 ClassInfo classInfo = classInfoMap.get(className);
                 writer.write("<h3>Clase: " + className + "</h3>");
                 writer.write("<p><strong>Descripcion:</strong> " + (classInfo.getClassJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + classInfo.getClassJavadoc() + "</pre>") + "</p>");
-                writer.write("<p><strong>Dependencias:</strong> " + String.join(", ", classInfo.getDependencies()) + "</p>");
+                writer.write("<p><strong>Dependencias:</strong> " + String.join(", ", classInfo.getRelatedClasses()) + "</p>");
 
                 if (!classInfo.getFields().isEmpty()) {
                     writer.write("<h4>Campos</h4>");
@@ -141,7 +155,15 @@ public class JavaDocGenerator {
                 }
             }
 
+            writer.write("<h2 id='comments'>Comentarios y Anotaciones</h2>");
+            writer.write("<div>");
+            writer.write("<textarea id='comments-section' rows='10' cols='100' placeholder='Añadir comentarios aquí...'></textarea>");
             writer.write("</div>");
+            // Incluir reporte de cobertura
+            writer.write("<h2 id='coverage-report'>Reporte de Cobertura</h2>");
+            writer.write("<div class='coverage-report'>");
+            writer.write("<iframe src='jacoco-report/index.html' style='width:100%; height:400px; border:none;'></iframe>");
+
             writer.write("</body>");
             writer.write("</html>");
         }
@@ -156,8 +178,8 @@ public class JavaDocGenerator {
             // Información General del Proyecto
             writer.write("\nInformacion General del Proyecto\n");
             writer.write("-------------------------------\n");
-            writer.write("Nombre del Proyecto: " + extractProjectName("input/sample.java") + "\n");
-            writer.write("Descripcion: " + extractProjectDescription("input/sample.java") + "\n");
+            writer.write("Nombre del Proyecto: " + extractProjectName("input/UserManagementSystem2.java") + "\n");
+            writer.write("Descripcion: " + extractProjectDescription("input/UserManagementSystem2.java") + "\n");
 
             // Estructura del Código
             writer.write("\nEstructura del Codigo\n");
@@ -184,8 +206,10 @@ public class JavaDocGenerator {
                     for (MethodInfo method : classInfo.getMethods()) {
                         writer.write("\t\tNombre: " + method.getMethodName() + "\n");
                         writer.write("\t\tDescripcion: " + (method.getMethodJavadoc().isEmpty() ? "No hay descripcion." : method.getMethodJavadoc()) + "\n");
+                        writer.write("\t\tTipo de Retorno: " + method.getReturnType() + "\n");
                         writer.write("\t\tModificadores: " + method.getMethodModifiers() + "\n");
                         writer.write("\t\tParametros: " + String.join(", ", method.getParameters()) + "\n");
+                        writer.write("\t\tDescripcion de Parametros: " + String.join(", ", method.getParameterDescriptions()) + "\n");
                     }
                 }
             }
@@ -198,7 +222,6 @@ public class JavaDocGenerator {
     }
 
     private static String extractProjectDescription(String inputFilePath) {
-        // Podríamos mejorar este método para leer una descripción del archivo o de una fuente externa
         return "Documentacion generada para el archivo " + inputFilePath;
     }
 
@@ -224,5 +247,80 @@ public class JavaDocGenerator {
         steps.add(new ActivityStep("Fin"));
 
         ActivityDiagramGenerator.generateActivityDiagram(steps, "output/activityDiagram");
+    }
+
+    private static void exportToPDF(String inputHtmlFilePath, String outputPdfFilePath) {
+        try {
+            // Modifica la ruta aquí para apuntar a tu instalación de wkhtmltopdf
+            String wkhtmltopdfPath = "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+            ProcessBuilder pb = new ProcessBuilder(wkhtmltopdfPath, "--enable-local-file-access", inputHtmlFilePath, outputPdfFilePath);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static String readCoverageReport(String coverageReportPath) {
+        try {
+            return new String(Files.readAllBytes(Paths.get(coverageReportPath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "No se pudo leer el reporte de cobertura.";
+        }
+    }
+
+    private static void generateCoverageReport() {
+        try {
+            // Compilar el archivo fuente antes de ejecutar JaCoCo
+            String sourceFilePath = "input/UserManagementSystem2.java";
+            String outputDir = "output/";
+            compileSource(sourceFilePath, outputDir);
+
+            // Ejecutar JaCoCo para generar el reporte de cobertura
+            String command = "java -javaagent:lib/jacocoagent.jar=destfile=output/jacoco.exec -cp output/ com.example.usermanagement.UserManagementSystem2";
+
+            ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            process.waitFor();
+
+            // Generar el reporte de cobertura
+            String reportCommand = "java -jar lib/jacococli.jar report output/jacoco.exec --classfiles output/ --sourcefiles input/ --html output/jacoco-report";
+            ProcessBuilder reportPb = new ProcessBuilder("cmd.exe", "/c", reportCommand);
+            reportPb.redirectErrorStream(true);
+            Process reportProcess = reportPb.start();
+            BufferedReader reportReader = new BufferedReader(new InputStreamReader(reportProcess.getInputStream()));
+            while ((line = reportReader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reportProcess.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void compileSource(String sourceFilePath, String outputDir) throws IOException, InterruptedException {
+        ProcessBuilder pb = new ProcessBuilder("javac", "-d", outputDir, sourceFilePath);
+        pb.redirectErrorStream(true);
+        Process process = pb.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        process.waitFor();
     }
 }

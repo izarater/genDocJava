@@ -8,6 +8,9 @@ public class JavaDocListener extends Java8BaseListener {
     private Map<String, ClassInfo> classInfoMap = new LinkedHashMap<>();
     private CommonTokenStream tokens;
     private ClassInfo currentClass;
+    private MethodInfo currentMethod;
+    private List<SequenceEvent> sequenceEvents = new ArrayList<>();
+    private List<ActivityStep> activitySteps = new ArrayList<>();
 
     public JavaDocListener(CommonTokenStream tokens) {
         this.tokens = tokens;
@@ -71,10 +74,33 @@ public class JavaDocListener extends Java8BaseListener {
         }
         String returnType = ctx.methodHeader().result().getText();
         String methodJavadoc = getJavadoc(ctx);
-        MethodInfo methodInfo = new MethodInfo(methodName, methodJavadoc, methodModifiers, parameters, returnType, parameterDescriptions);
+        currentMethod = new MethodInfo(methodName, methodJavadoc, methodModifiers, parameters, returnType, parameterDescriptions);
         if (currentClass != null) {
-            currentClass.addMethod(methodInfo);
+            currentClass.addMethod(currentMethod);
             currentClass.addDependency(returnType);
+        }
+    }
+
+    @Override
+    public void exitMethodDeclaration(Java8Parser.MethodDeclarationContext ctx) {
+        currentMethod = null;
+    }
+
+    @Override
+    public void enterMethodInvocation(Java8Parser.MethodInvocationContext ctx) {
+        if (currentMethod != null && ctx.methodName() != null) {
+            String methodName = ctx.methodName().getText();
+            String caller = currentClass.getClassName();
+            String callee = ctx.methodName().getText(); // Obtener el nombre del método invocado
+            sequenceEvents.add(new SequenceEvent(caller, callee, methodName));
+        }
+    }
+
+
+    @Override
+    public void enterStatement(Java8Parser.StatementContext ctx) {
+        if (currentMethod != null) {
+            activitySteps.add(new ActivityStep(ctx.getText()));
         }
     }
 
@@ -93,7 +119,16 @@ public class JavaDocListener extends Java8BaseListener {
         return "";
     }
 
+
     public Map<String, ClassInfo> getClassInfoMap() {
         return classInfoMap;
+    }
+
+    public List<SequenceEvent> getSequenceEvents() {
+        return sequenceEvents;
+    }
+
+    public List<ActivityStep> getActivitySteps() {
+        return activitySteps;
     }
 }

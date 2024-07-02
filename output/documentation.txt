@@ -3,8 +3,8 @@ Documentacion de Codigo Java
 
 Informacion General del Proyecto
 -------------------------------
-Nombre del Proyecto: sample
-Descripcion: Documentacion generada para el archivo input/sample.java
+Nombre del Proyecto: UserManagementSystem2
+Descripcion: Documentacion generada para el archivo input/UserManagementSystem2.java
 
 Estructura del Codigo
 ----------------------
@@ -15,8 +15,10 @@ Clase: UserManagementSystem2
 	Metodos:
 		Nombre: main
 		Descripcion: No hay descripcion.
+		Tipo de Retorno: void
 		Modificadores: public static
 		Parametros: 
+		Descripcion de Parametros: 
 Clase: User
 	Descripcion: /**
  * Clase que representa a un usuario en el sistema.
@@ -46,36 +48,46 @@ Clase: User
      * Obtiene el identificador único del usuario.
      * @return El identificador único del usuario.
      */
+		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: getName
 		Descripcion: /**
      * Obtiene el nombre del usuario.
      * @return El nombre del usuario.
      */
+		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: setName
 		Descripcion: /**
      * Establece el nombre del usuario.
      * @param name El nuevo nombre para el usuario.
      */
+		Tipo de Retorno: void
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: getEmail
 		Descripcion: /**
      * Obtiene la dirección de correo electrónico del usuario.
      * @return La dirección de correo electrónico del usuario.
      */
+		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: setEmail
 		Descripcion: /**
      * Establece la dirección de correo electrónico del usuario.
      * @param email La nueva dirección de correo electrónico del usuario.
      */
+		Tipo de Retorno: void
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 Clase: AdminUser
 	Descripcion: /**
  * Clase que representa a un usuario administrador, que extiende a la clase User.
@@ -93,15 +105,19 @@ Clase: AdminUser
      * Obtiene el nivel de administración del usuario.
      * @return El nivel de administración del usuario.
      */
+		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: setAdminLevel
 		Descripcion: /**
      * Establece el nivel de administración del usuario.
      * @param adminLevel El nuevo nivel de administración para el usuario.
      */
+		Tipo de Retorno: void
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 Clase: UserService
 	Descripcion: /**
  * Clase de servicio que gestiona las operaciones con los usuarios.
@@ -119,30 +135,38 @@ Clase: UserService
      * Añade un nuevo usuario al repositorio.
      * @param user El usuario a añadir.
      */
+		Tipo de Retorno: void
 		Modificadores: @Override public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: getUserInfo
 		Descripcion: /**
      * Obtiene la información de un usuario basado en su identificador.
      * @param userId El identificador del usuario.
      * @return La información del usuario.
      */
+		Tipo de Retorno: String
 		Modificadores: @Override public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: removeUser
 		Descripcion: /**
      * Elimina un usuario del repositorio.
      * @param userId El identificador del usuario a eliminar.
      */
+		Tipo de Retorno: void
 		Modificadores: @Override public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: getAllUsers
 		Descripcion: /**
      * Obtiene la lista de todos los usuarios.
      * @return La lista de todos los usuarios.
      */
+		Tipo de Retorno: List<User>
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 Clase: AuditService
 	Descripcion: /**
  * Clase de servicio que gestiona el registro de auditorías.
@@ -160,12 +184,16 @@ Clase: AuditService
      * Registra una acción en el sistema.
      * @param action La acción a registrar.
      */
+		Tipo de Retorno: void
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
 		Nombre: getLogs
 		Descripcion: /**
      * Obtiene todos los registros de auditoría.
      * @return La lista de registros de auditoría.
      */
+		Tipo de Retorno: List<String>
 		Modificadores: public
 		Parametros: 
+		Descripcion de Parametros: 
