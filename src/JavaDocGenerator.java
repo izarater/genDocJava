@@ -51,6 +51,9 @@ public class JavaDocGenerator {
         // Generar un diagrama de secuencia
         generateSequenceDiagram();
 
+        // Generar un diagrama de actividad
+        generateActivityDiagram();
+
         System.out.println("Documentación y diagramas generados exitosamente.");
     }
 
@@ -73,29 +76,42 @@ public class JavaDocGenerator {
             writer.write("pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }");
             writer.write(".container { max-width: 900px; margin: 0 auto; }");
             writer.write(".class-diagram { text-align: center; }");
+            writer.write(".nav { margin-bottom: 20px; }");
+            writer.write(".nav a { margin-right: 10px; }");
             writer.write("</style>");
             writer.write("</head>");
             writer.write("<body>");
             writer.write("<div class='container'>");
             writer.write("<h1>Documentacion de Codigo Java</h1>");
+            writer.write("<div class='nav'>");
+            writer.write("<a href='#project-info'>Informacion General</a>");
+            writer.write("<a href='#class-diagram'>Diagrama de Clases</a>");
+            writer.write("<a href='#sequence-diagram'>Diagrama de Secuencia</a>");
+            writer.write("<a href='#activity-diagram'>Diagrama de Actividad</a>");
+            writer.write("<a href='#code-structure'>Estructura del Codigo</a>");
+            writer.write("</div>");
 
             // Información General del Proyecto
-            writer.write("<h2>Informacion General del Proyecto</h2>");
+            writer.write("<h2 id='project-info'>Informacion General del Proyecto</h2>");
             writer.write("<ul>");
             writer.write("<li><strong>Nombre del Proyecto:</strong> " + extractProjectName(inputFilePath) + "</li>");
             writer.write("<li><strong>Descripcion:</strong> " + extractProjectDescription(inputFilePath) + "</li>");
             writer.write("</ul>");
 
             // Incluir el diagrama de clases en la documentación
-            writer.write("<h2>Diagrama de Clases</h2>");
+            writer.write("<h2 id='class-diagram'>Diagrama de Clases</h2>");
             writer.write("<div class='class-diagram'><img src='classDiagram.png' alt='Diagrama de Clases'></div>");
 
             // Incluir el diagrama de secuencia en la documentación
-            writer.write("<h2>Diagrama de Secuencia</h2>");
+            writer.write("<h2 id='sequence-diagram'>Diagrama de Secuencia</h2>");
             writer.write("<div class='class-diagram'><img src='sequenceDiagram.png' alt='Diagrama de Secuencia'></div>");
 
+            // Incluir el diagrama de actividad en la documentación
+            writer.write("<h2 id='activity-diagram'>Diagrama de Actividad</h2>");
+            writer.write("<div class='class-diagram'><img src='activityDiagram.png' alt='Diagrama de Actividad'></div>");
+
             // Estructura del Código
-            writer.write("<h2>Estructura del Codigo</h2>");
+            writer.write("<h2 id='code-structure'>Estructura del Codigo</h2>");
             for (String className : classInfoMap.keySet()) {
                 ClassInfo classInfo = classInfoMap.get(className);
                 writer.write("<h3>Clase: " + className + "</h3>");
@@ -194,5 +210,17 @@ public class JavaDocGenerator {
         events.add(new SequenceEvent("UserService", "User", "confirmAdd()"));
 
         SequenceDiagramGenerator.generateSequenceDiagram(events, "output/sequenceDiagram");
+    }
+
+    private static void generateActivityDiagram() throws IOException {
+        List<ActivityStep> steps = new ArrayList<>();
+        steps.add(new ActivityStep("Inicio"));
+        steps.add(new ActivityStep("Login"));
+        steps.add(new ActivityStep("Seleccionar Usuario"));
+        steps.add(new ActivityStep("Actualizar Información"));
+        steps.add(new ActivityStep("Guardar Cambios"));
+        steps.add(new ActivityStep("Fin"));
+
+        ActivityDiagramGenerator.generateActivityDiagram(steps, "output/activityDiagram");
     }
 }

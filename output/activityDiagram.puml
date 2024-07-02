@@ -1,0 +1,10 @@
+@startuml
+start
+:Inicio;
+:Login;
+:Seleccionar Usuario;
+:Actualizar Información;
+:Guardar Cambios;
+:Fin;
+stop
+@enduml
