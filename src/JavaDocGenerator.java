@@ -1,5 +1,7 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -7,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 public class JavaDocGenerator {
+    private static final Logger logger = LoggerFactory.getLogger(JavaDocGenerator.class);
 
     public static void main(String[] args) throws IOException {
         if (args.length == 0) {
@@ -42,7 +45,10 @@ public class JavaDocGenerator {
         // Generar documentación en formato de texto plano
         generateTextDocumentation(classInfoMap, "output/documentation.txt");
 
-        System.out.println("Documentación generada exitosamente.");
+        // Generar un diagrama de clases
+        DiagramGenerator.generateClassDiagram(classInfoMap, "output/classDiagram.png");
+
+        System.out.println("Documentación y diagramas generados exitosamente.");
     }
 
     public static void generateHTMLDocumentation(Map<String, ClassInfo> classInfoMap, String inputFilePath) throws IOException {
@@ -62,6 +68,10 @@ public class JavaDocGenerator {
             writer.write("<li><strong>Nombre del Proyecto:</strong> " + extractProjectName(inputFilePath) + "</li>");
             writer.write("<li><strong>Descripcion:</strong> " + extractProjectDescription(inputFilePath) + "</li>");
             writer.write("</ul>");
+
+            // Incluir el diagrama de clases en la documentación
+            writer.write("<h2>Diagrama de Clases</h2>");
+            writer.write("<img src='classDiagram.png' alt='Diagrama de Clases'>");
 
             // Estructura del Código
             writer.write("<h2>Estructura del Codigo</h2>");
@@ -97,6 +107,49 @@ public class JavaDocGenerator {
         }
     }
 
+    public static void generateTextDocumentation(Map<String, ClassInfo> classInfoMap, String outputFileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
+            writer.write("Documentacion de Codigo Java\n");
+            writer.write("============================\n");
+
+            // Información General del Proyecto
+            writer.write("\nInformacion General del Proyecto\n");
+            writer.write("-------------------------------\n");
+            writer.write("Nombre del Proyecto: " + extractProjectName("input/sample.java") + "\n");
+            writer.write("Descripcion: " + extractProjectDescription("input/sample.java") + "\n");
+
+            // Estructura del Código
+            writer.write("\nEstructura del Codigo\n");
+            writer.write("----------------------\n");
+            for (String className : classInfoMap.keySet()) {
+                ClassInfo classInfo = classInfoMap.get(className);
+                writer.write("Clase: " + className + "\n");
+                writer.write("\tDescripcion: " + (classInfo.getClassJavadoc().isEmpty() ? "No hay descripcion." : classInfo.getClassJavadoc()) + "\n");
+
+                // Campos
+                if (!classInfo.getFields().isEmpty()) {
+                    writer.write("\tCampos:\n");
+                    for (FieldInfo field : classInfo.getFields()) {
+                        writer.write("\t\tNombre: " + field.getFieldName() + "\n");
+                        writer.write("\t\tDescripcion: " + (field.getFieldJavadoc().isEmpty() ? "No hay descripcion." : field.getFieldJavadoc()) + "\n");
+                        writer.write("\t\tModificadores: " + field.getFieldModifiers() + "\n");
+                    }
+                }
+
+                // Métodos
+                if (!classInfo.getMethods().isEmpty()) {
+                    writer.write("\tMetodos:\n");
+                    for (MethodInfo method : classInfo.getMethods()) {
+                        writer.write("\t\tNombre: " + method.getMethodName() + "\n");
+                        writer.write("\t\tDescripcion: " + (method.getMethodJavadoc().isEmpty() ? "No hay descripcion." : method.getMethodJavadoc()) + "\n");
+                        writer.write("\t\tModificadores: " + method.getMethodModifiers() + "\n");
+                        writer.write("\t\tParametros: " + method.getParameters() + "\n");
+                    }
+                }
+            }
+        }
+    }
+
     private static String extractProjectName(String inputFilePath) {
         Path path = Paths.get(inputFilePath);
         return path.getFileName().toString().replace(".java", "");
@@ -106,43 +159,4 @@ public class JavaDocGenerator {
         // Podríamos mejorar este método para leer una descripción del archivo o de una fuente externa
         return "Documentacion generada para el archivo " + inputFilePath;
     }
-
-    private static void generateTextDocumentation(Map<String, ClassInfo> classInfoMap, String outputFileName) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
-            writer.write("Documentación de Código Java\n\n");
-
-            writer.write("Información General del Proyecto\n");
-            writer.write("Nombre del Proyecto: sample\n");
-            writer.write("Descripción: Documentación generada para el archivo " + outputFileName + "\n\n");
-
-            writer.write("Estructura del Código\n\n");
-
-            for (String className : classInfoMap.keySet()) {
-                ClassInfo classInfo = classInfoMap.get(className);
-                writer.write("Clase: " + className + "\n");
-                writer.write("  Descripción: " + (classInfo.getClassJavadoc().isEmpty() ? "No hay descripción." : classInfo.getClassJavadoc()) + "\n");
-
-                writer.write("  Campos:\n");
-                for (FieldInfo field : classInfo.getFields()) {
-                    writer.write("    Nombre: " + field.getFieldName() + "\n");
-                    writer.write("    Descripción: " + (field.getFieldJavadoc().isEmpty() ? "No hay descripción." : field.getFieldJavadoc()) + "\n");
-                    writer.write("    Modificadores: " + (field.getFieldModifiers().isEmpty() ? "No hay modificadores." : field.getFieldModifiers()) + "\n");
-                }
-
-                writer.write("  Métodos:\n");
-                for (MethodInfo method : classInfo.getMethods()) {
-                    writer.write("    Nombre: " + method.getMethodName() + "\n");
-                    writer.write("    Descripción: " + (method.getMethodJavadoc().isEmpty() ? "No hay descripción." : method.getMethodJavadoc()) + "\n");
-                    writer.write("    Modificadores: " + (method.getMethodModifiers().isEmpty() ? "No hay modificadores." : method.getMethodModifiers()) + "\n");
-                    writer.write("    Parámetros: " + (method.getParameters().isEmpty() ? "Sin parámetros" : method.getParameters()) + "\n");
-                }
-
-                writer.write("\n");
-            }
-        }
-    }
 }
-
-
-
-

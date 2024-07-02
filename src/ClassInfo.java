@@ -6,6 +6,7 @@ public class ClassInfo {
     private String classJavadoc;
     private List<MethodInfo> methods = new ArrayList<>();
     private List<FieldInfo> fields = new ArrayList<>();
+    private List<String> relatedClasses = new ArrayList<>(); // Añadir este campo
 
     public ClassInfo(String className, String classJavadoc) {
         this.className = className;
@@ -18,6 +19,10 @@ public class ClassInfo {
 
     public void addField(FieldInfo field) {
         fields.add(field);
+    }
+
+    public void addRelatedClass(String relatedClass) {
+        relatedClasses.add(relatedClass);
     }
 
     public String getClassName() {
@@ -35,5 +40,8 @@ public class ClassInfo {
     public List<FieldInfo> getFields() {
         return fields;
     }
-}
 
+    public List<String> getRelatedClasses() {
+        return relatedClasses;
+    }
+}

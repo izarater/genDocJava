@@ -1,129 +1,126 @@
-Documentación de Código Java
+Documentacion de Codigo Java
+============================
 
-Información General del Proyecto
+Informacion General del Proyecto
+-------------------------------
 Nombre del Proyecto: sample
-Descripción: Documentación generada para el archivo output/documentation.txt
+Descripcion: Documentacion generada para el archivo input/sample.java
 
-Estructura del Código
-
+Estructura del Codigo
+----------------------
 Clase: UserManagementSystem2
-  Descripción: /**
+	Descripcion: /**
  * Clase principal que contiene el punto de entrada al sistema de gestión de usuarios.
  */
-  Campos:
-  Métodos:
-    Nombre: main
-    Descripción: No hay descripción.
-    Modificadores: public static
-    Parámetros: String[]args
-
+	Metodos:
+		Nombre: main
+		Descripcion: No hay descripcion.
+		Modificadores: public static
+		Parametros: String[]args
 Clase: User
-  Descripción: /**
+	Descripcion: /**
  * Clase que representa a un usuario en el sistema.
  */
-  Campos:
-    Nombre: id
-    Descripción: /**
+	Campos:
+		Nombre: id
+		Descripcion: /**
      * Identificador único del usuario.
      */
-    Modificadores: private
-    Nombre: name
-    Descripción: /**
+		Modificadores: private
+		Nombre: name
+		Descripcion: /**
      * Nombre del usuario.
      */
-    Modificadores: private
-    Nombre: email
-    Descripción: /**
+		Modificadores: private
+		Nombre: email
+		Descripcion: /**
      * Dirección de correo electrónico del usuario.
      */
-    Modificadores: private
-  Métodos:
-    Nombre: getId
-    Descripción: /**
+		Modificadores: private
+	Metodos:
+		Nombre: getId
+		Descripcion: /**
      * Obtiene el identificador único del usuario.
      * @return El identificador único del usuario.
      */
-    Modificadores: public
-    Parámetros: Sin parámetros
-    Nombre: getName
-    Descripción: /**
+		Modificadores: public
+		Parametros: Sin parámetros
+		Nombre: getName
+		Descripcion: /**
      * Obtiene el nombre del usuario.
      * @return El nombre del usuario.
      */
-    Modificadores: public
-    Parámetros: Sin parámetros
-    Nombre: setName
-    Descripción: /**
+		Modificadores: public
+		Parametros: Sin parámetros
+		Nombre: setName
+		Descripcion: /**
      * Establece el nombre del usuario.
      * @param name El nuevo nombre para el usuario.
      */
-    Modificadores: public
-    Parámetros: Stringname
-    Nombre: getEmail
-    Descripción: /**
+		Modificadores: public
+		Parametros: Stringname
+		Nombre: getEmail
+		Descripcion: /**
      * Obtiene la dirección de correo electrónico del usuario.
      * @return La dirección de correo electrónico del usuario.
      */
-    Modificadores: public
-    Parámetros: Sin parámetros
-    Nombre: setEmail
-    Descripción: /**
+		Modificadores: public
+		Parametros: Sin parámetros
+		Nombre: setEmail
+		Descripcion: /**
      * Establece la dirección de correo electrónico del usuario.
      * @param email La nueva dirección de correo electrónico del usuario.
      */
-    Modificadores: public
-    Parámetros: Stringemail
-
+		Modificadores: public
+		Parametros: Stringemail
 Clase: AdminUser
-  Descripción: /**
+	Descripcion: /**
  * Clase que representa a un usuario administrador, que extiende a la clase User.
  */
-  Campos:
-    Nombre: adminLevel
-    Descripción: /**
+	Campos:
+		Nombre: adminLevel
+		Descripcion: /**
      * Nivel de administración del usuario.
      */
-    Modificadores: private
-  Métodos:
-    Nombre: getAdminLevel
-    Descripción: /**
+		Modificadores: private
+	Metodos:
+		Nombre: getAdminLevel
+		Descripcion: /**
      * Obtiene el nivel de administración del usuario.
      * @return El nivel de administración del usuario.
      */
-    Modificadores: public
-    Parámetros: Sin parámetros
-    Nombre: setAdminLevel
-    Descripción: /**
+		Modificadores: public
+		Parametros: Sin parámetros
+		Nombre: setAdminLevel
+		Descripcion: /**
      * Establece el nivel de administración del usuario.
      * @param adminLevel El nuevo nivel de administración para el usuario.
      */
-    Modificadores: public
-    Parámetros: StringadminLevel
-
+		Modificadores: public
+		Parametros: StringadminLevel
 Clase: UserService
-  Descripción: /**
+	Descripcion: /**
  * Clase de servicio que gestiona las operaciones con los usuarios.
  */
-  Campos:
-    Nombre: users
-    Descripción: /**
+	Campos:
+		Nombre: users
+		Descripcion: /**
      * Colección de usuarios gestionada por el servicio.
      */
-    Modificadores: private
-  Métodos:
-    Nombre: addUser
-    Descripción: /**
+		Modificadores: private
+	Metodos:
+		Nombre: addUser
+		Descripcion: /**
      * Añade un nuevo usuario al repositorio.
      * @param user El usuario a añadir.
      */
-    Modificadores: @Override public
-    Parámetros: Useruser
-    Nombre: getUserInfo
-    Descripción: /**
+		Modificadores: @Override public
+		Parametros: Useruser
+		Nombre: getUserInfo
+		Descripcion: /**
      * Obtiene la información de un usuario basado en su identificador.
      * @param userId El identificador del usuario.
      * @return La información del usuario.
      */
-    Modificadores: @Override public
-    Parámetros: StringuserId
-
+		Modificadores: @Override public
+		Parametros: StringuserId
