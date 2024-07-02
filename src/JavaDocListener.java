@@ -21,6 +21,21 @@ public class JavaDocListener extends Java8BaseListener {
         String classJavadoc = getJavadoc(ctx);
         currentClass = new ClassInfo(className, classJavadoc);
         classInfoMap.put(className, currentClass);
+
+        // Captura la superclase y las interfaces implementadas
+        if (ctx.normalClassDeclaration().superclass() != null) {
+            String superClass = ctx.normalClassDeclaration().superclass().classType().getText();
+            currentClass.setSuperClass(superClass);
+            currentClass.addRelatedClass(superClass);
+        }
+
+        if (ctx.normalClassDeclaration().superinterfaces() != null) {
+            for (Java8Parser.InterfaceTypeContext interfaceCtx : ctx.normalClassDeclaration().superinterfaces().interfaceTypeList().interfaceType()) {
+                String interfaceName = interfaceCtx.getText();
+                currentClass.addInterface(interfaceName);
+                currentClass.addRelatedClass(interfaceName);
+            }
+        }
     }
 
     @Override

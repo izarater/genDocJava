@@ -7,6 +7,8 @@ public class ClassInfo {
     private List<MethodInfo> methods = new ArrayList<>();
     private List<FieldInfo> fields = new ArrayList<>();
     private List<String> relatedClasses = new ArrayList<>();
+    private String superClass;
+    private List<String> interfaces = new ArrayList<>();
 
     public ClassInfo(String className, String classJavadoc) {
         this.className = className;
@@ -53,6 +55,22 @@ public class ClassInfo {
         this.relatedClasses = relatedClasses;
     }
 
+    public String getSuperClass() {
+        return superClass;
+    }
+
+    public void setSuperClass(String superClass) {
+        this.superClass = superClass;
+    }
+
+    public List<String> getInterfaces() {
+        return interfaces;
+    }
+
+    public void setInterfaces(List<String> interfaces) {
+        this.interfaces = interfaces;
+    }
+
     public void addMethod(MethodInfo method) {
         methods.add(method);
     }
@@ -63,5 +81,9 @@ public class ClassInfo {
 
     public void addRelatedClass(String relatedClass) {
         relatedClasses.add(relatedClass);
+    }
+
+    public void addInterface(String interfaceName) {
+        interfaces.add(interfaceName);
     }
 }
