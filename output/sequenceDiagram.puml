@@ -1,0 +1,8 @@
+@startuml
+User -> UserService : addUser()
+UserService -> UserRepository : saveUser()
+UserRepository -> Database : insertUser()
+Database -> UserRepository : confirmInsert()
+UserRepository -> UserService : confirmSave()
+UserService -> User : confirmAdd()
+@enduml

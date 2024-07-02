@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
+import java.util.*;
 
 public class JavaDocGenerator {
     private static final Logger logger = LoggerFactory.getLogger(JavaDocGenerator.class);
@@ -48,6 +48,9 @@ public class JavaDocGenerator {
         // Generar un diagrama de clases
         DiagramGenerator.generateClassDiagram(classInfoMap, "output/classDiagram.png");
 
+        // Generar un diagrama de secuencia
+        generateSequenceDiagram();
+
         System.out.println("Documentación y diagramas generados exitosamente.");
     }
 
@@ -58,8 +61,22 @@ public class JavaDocGenerator {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName))) {
             writer.write("<!DOCTYPE html>");
             writer.write("<html>");
-            writer.write("<head><title>Documentacion de Codigo Java</title></head>");
+            writer.write("<head>");
+            writer.write("<title>Documentacion de Codigo Java</title>");
+            writer.write("<style>");
+            writer.write("body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }");
+            writer.write("h1 { color: #333; }");
+            writer.write("h2 { color: #666; }");
+            writer.write("h3 { color: #888; }");
+            writer.write("ul { list-style-type: none; padding: 0; }");
+            writer.write("li { margin: 5px 0; }");
+            writer.write("pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }");
+            writer.write(".container { max-width: 900px; margin: 0 auto; }");
+            writer.write(".class-diagram { text-align: center; }");
+            writer.write("</style>");
+            writer.write("</head>");
             writer.write("<body>");
+            writer.write("<div class='container'>");
             writer.write("<h1>Documentacion de Codigo Java</h1>");
 
             // Información General del Proyecto
@@ -71,7 +88,11 @@ public class JavaDocGenerator {
 
             // Incluir el diagrama de clases en la documentación
             writer.write("<h2>Diagrama de Clases</h2>");
-            writer.write("<img src='classDiagram.png' alt='Diagrama de Clases'>");
+            writer.write("<div class='class-diagram'><img src='classDiagram.png' alt='Diagrama de Clases'></div>");
+
+            // Incluir el diagrama de secuencia en la documentación
+            writer.write("<h2>Diagrama de Secuencia</h2>");
+            writer.write("<div class='class-diagram'><img src='sequenceDiagram.png' alt='Diagrama de Secuencia'></div>");
 
             // Estructura del Código
             writer.write("<h2>Estructura del Codigo</h2>");
@@ -86,6 +107,7 @@ public class JavaDocGenerator {
                     for (FieldInfo field : classInfo.getFields()) {
                         writer.write("<p><strong>Nombre:</strong> " + field.getFieldName() + "</p>");
                         writer.write("<p><strong>Descripcion:</strong> " + (field.getFieldJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + field.getFieldJavadoc() + "</pre>") + "</p>");
+                        writer.write("<p><strong>Tipo:</strong> " + field.getFieldType() + "</p>");
                         writer.write("<p><strong>Modificadores:</strong> " + field.getFieldModifiers() + "</p>");
                     }
                 }
@@ -97,11 +119,12 @@ public class JavaDocGenerator {
                         writer.write("<p><strong>Nombre:</strong> " + method.getMethodName() + "</p>");
                         writer.write("<p><strong>Descripcion:</strong> " + (method.getMethodJavadoc().isEmpty() ? "No hay descripcion." : "<pre>" + method.getMethodJavadoc() + "</pre>") + "</p>");
                         writer.write("<p><strong>Modificadores:</strong> " + method.getMethodModifiers() + "</p>");
-                        writer.write("<p><strong>Parametros:</strong> " + method.getParameters() + "</p>");
+                        writer.write("<p><strong>Parametros:</strong> " + String.join(", ", method.getParameters()) + "</p>");
                     }
                 }
             }
 
+            writer.write("</div>");
             writer.write("</body>");
             writer.write("</html>");
         }
@@ -132,6 +155,7 @@ public class JavaDocGenerator {
                     for (FieldInfo field : classInfo.getFields()) {
                         writer.write("\t\tNombre: " + field.getFieldName() + "\n");
                         writer.write("\t\tDescripcion: " + (field.getFieldJavadoc().isEmpty() ? "No hay descripcion." : field.getFieldJavadoc()) + "\n");
+                        writer.write("\t\tTipo: " + field.getFieldType() + "\n");
                         writer.write("\t\tModificadores: " + field.getFieldModifiers() + "\n");
                     }
                 }
@@ -143,7 +167,7 @@ public class JavaDocGenerator {
                         writer.write("\t\tNombre: " + method.getMethodName() + "\n");
                         writer.write("\t\tDescripcion: " + (method.getMethodJavadoc().isEmpty() ? "No hay descripcion." : method.getMethodJavadoc()) + "\n");
                         writer.write("\t\tModificadores: " + method.getMethodModifiers() + "\n");
-                        writer.write("\t\tParametros: " + method.getParameters() + "\n");
+                        writer.write("\t\tParametros: " + String.join(", ", method.getParameters()) + "\n");
                     }
                 }
             }
@@ -158,5 +182,17 @@ public class JavaDocGenerator {
     private static String extractProjectDescription(String inputFilePath) {
         // Podríamos mejorar este método para leer una descripción del archivo o de una fuente externa
         return "Documentacion generada para el archivo " + inputFilePath;
+    }
+
+    private static void generateSequenceDiagram() throws IOException {
+        List<SequenceEvent> events = new ArrayList<>();
+        events.add(new SequenceEvent("User", "UserService", "addUser()"));
+        events.add(new SequenceEvent("UserService", "UserRepository", "saveUser()"));
+        events.add(new SequenceEvent("UserRepository", "Database", "insertUser()"));
+        events.add(new SequenceEvent("Database", "UserRepository", "confirmInsert()"));
+        events.add(new SequenceEvent("UserRepository", "UserService", "confirmSave()"));
+        events.add(new SequenceEvent("UserService", "User", "confirmAdd()"));
+
+        SequenceDiagramGenerator.generateSequenceDiagram(events, "output/sequenceDiagram");
     }
 }

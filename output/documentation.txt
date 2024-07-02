@@ -16,7 +16,7 @@ Clase: UserManagementSystem2
 		Nombre: main
 		Descripcion: No hay descripcion.
 		Modificadores: public static
-		Parametros: []
+		Parametros: 
 Clase: User
 	Descripcion: /**
  * Clase que representa a un usuario en el sistema.
@@ -26,16 +26,19 @@ Clase: User
 		Descripcion: /**
      * Identificador único del usuario.
      */
+		Tipo: String
 		Modificadores: private
 		Nombre: name
 		Descripcion: /**
      * Nombre del usuario.
      */
+		Tipo: String
 		Modificadores: private
 		Nombre: email
 		Descripcion: /**
      * Dirección de correo electrónico del usuario.
      */
+		Tipo: String
 		Modificadores: private
 	Metodos:
 		Nombre: getId
@@ -44,35 +47,35 @@ Clase: User
      * @return El identificador único del usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: getName
 		Descripcion: /**
      * Obtiene el nombre del usuario.
      * @return El nombre del usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: setName
 		Descripcion: /**
      * Establece el nombre del usuario.
      * @param name El nuevo nombre para el usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: getEmail
 		Descripcion: /**
      * Obtiene la dirección de correo electrónico del usuario.
      * @return La dirección de correo electrónico del usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: setEmail
 		Descripcion: /**
      * Establece la dirección de correo electrónico del usuario.
      * @param email La nueva dirección de correo electrónico del usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 Clase: AdminUser
 	Descripcion: /**
  * Clase que representa a un usuario administrador, que extiende a la clase User.
@@ -82,6 +85,7 @@ Clase: AdminUser
 		Descripcion: /**
      * Nivel de administración del usuario.
      */
+		Tipo: String
 		Modificadores: private
 	Metodos:
 		Nombre: getAdminLevel
@@ -90,14 +94,14 @@ Clase: AdminUser
      * @return El nivel de administración del usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: setAdminLevel
 		Descripcion: /**
      * Establece el nivel de administración del usuario.
      * @param adminLevel El nuevo nivel de administración para el usuario.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 Clase: UserService
 	Descripcion: /**
  * Clase de servicio que gestiona las operaciones con los usuarios.
@@ -107,6 +111,7 @@ Clase: UserService
 		Descripcion: /**
      * Colección de usuarios gestionada por el servicio.
      */
+		Tipo: Map<String,User>
 		Modificadores: private
 	Metodos:
 		Nombre: addUser
@@ -115,7 +120,7 @@ Clase: UserService
      * @param user El usuario a añadir.
      */
 		Modificadores: @Override public
-		Parametros: []
+		Parametros: 
 		Nombre: getUserInfo
 		Descripcion: /**
      * Obtiene la información de un usuario basado en su identificador.
@@ -123,21 +128,21 @@ Clase: UserService
      * @return La información del usuario.
      */
 		Modificadores: @Override public
-		Parametros: []
+		Parametros: 
 		Nombre: removeUser
 		Descripcion: /**
      * Elimina un usuario del repositorio.
      * @param userId El identificador del usuario a eliminar.
      */
 		Modificadores: @Override public
-		Parametros: []
+		Parametros: 
 		Nombre: getAllUsers
 		Descripcion: /**
      * Obtiene la lista de todos los usuarios.
      * @return La lista de todos los usuarios.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 Clase: AuditService
 	Descripcion: /**
  * Clase de servicio que gestiona el registro de auditorías.
@@ -147,6 +152,7 @@ Clase: AuditService
 		Descripcion: /**
      * Lista de registros de auditoría.
      */
+		Tipo: List<String>
 		Modificadores: private
 	Metodos:
 		Nombre: logAction
@@ -155,11 +161,11 @@ Clase: AuditService
      * @param action La acción a registrar.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
 		Nombre: getLogs
 		Descripcion: /**
      * Obtiene todos los registros de auditoría.
      * @return La lista de registros de auditoría.
      */
 		Modificadores: public
-		Parametros: []
+		Parametros: 
