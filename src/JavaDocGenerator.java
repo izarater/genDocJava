@@ -50,18 +50,18 @@ public class JavaDocGenerator {
         DiagramGenerator.generateClassDiagram(classInfoMap, "output/classDiagram.png");
 
         // Generar un diagrama de secuencia
-        //List<SequenceEvent> sequenceEvents = extractor.getSequenceEvents();
-        //SequenceDiagramGenerator.generateSequenceDiagram(sequenceEvents, "output/sequenceDiagram");
-        // Obtener la lista de eventos de secuencia del listener y generar el diagrama
-        //SequenceDiagramGenerator.generateSequenceDiagram(extractor.getSequenceEvents(), "output/sequenceDiagram");
         generateSequenceDiagram();
 
         // Generar un diagrama de actividad
         List<ActivityStep> activitySteps = extractor.getActivitySteps();
         ActivityDiagramGenerator.generateActivityDiagram(activitySteps, "output/activityDiagram");
 
+        // Extraer nombre del paquete y nombre de la clase
+        String className = extractProjectName(inputFile);
+        String packageName = extractPackageName(inputFile);
+
         // Generar reporte de cobertura de código
-        generateCoverageReport();
+        generateCoverageReport(inputFile, className, packageName);
 
         // Exportar la documentación a PDF
         exportToPDF("output/documentation.html", "output/documentation.pdf");
@@ -249,6 +249,21 @@ public class JavaDocGenerator {
         ActivityDiagramGenerator.generateActivityDiagram(steps, "output/activityDiagram");
     }
 
+    private static String extractPackageName(String inputFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("package ")) {
+                    return line.substring(8, line.indexOf(';')).trim();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
     private static void exportToPDF(String inputHtmlFilePath, String outputPdfFilePath) {
         try {
             // Modifica la ruta aquí para apuntar a tu instalación de wkhtmltopdf
@@ -277,16 +292,13 @@ public class JavaDocGenerator {
         }
     }
 
-    private static void generateCoverageReport() {
+    private static void generateCoverageReport(String sourceFilePath, String className, String packageName) {
         try {
             // Compilar el archivo fuente antes de ejecutar JaCoCo
-            String sourceFilePath = "input/UserManagementSystem2.java";
             String outputDir = "output/";
             compileSource(sourceFilePath, outputDir);
 
-            // Ejecutar JaCoCo para generar el reporte de cobertura
-            String command = "java -javaagent:lib/jacocoagent.jar=destfile=output/jacoco.exec -cp output/ com.example.usermanagement.UserManagementSystem2";
-
+            String command = "java -javaagent:lib/jacocoagent.jar=destfile=output/jacoco.exec -cp output/ " + packageName + "." + className;
             ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -311,6 +323,8 @@ public class JavaDocGenerator {
             e.printStackTrace();
         }
     }
+
+
 
     private static void compileSource(String sourceFilePath, String outputDir) throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder("javac", "-d", outputDir, sourceFilePath);

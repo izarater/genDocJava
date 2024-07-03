@@ -8,9 +8,9 @@ Descripcion: Documentacion generada para el archivo input/UserManagementSystem2.
 
 Estructura del Codigo
 ----------------------
-Clase: UserManagementSystem2
+Clase: AerospaceManagementSystem
 	Descripcion: /**
- * Clase principal que contiene el punto de entrada al sistema de gestión de usuarios.
+ * Clase principal que contiene el punto de entrada al sistema de gestión aeroespacial.
  */
 	Metodos:
 		Nombre: main
@@ -19,181 +19,108 @@ Clase: UserManagementSystem2
 		Modificadores: public static
 		Parametros: 
 		Descripcion de Parametros: 
-Clase: User
+Clase: Spacecraft
 	Descripcion: /**
- * Clase que representa a un usuario en el sistema.
+ * Clase que representa una nave espacial.
  */
 	Campos:
-		Nombre: id
-		Descripcion: /**
-     * Identificador único del usuario.
-     */
-		Tipo: String
-		Modificadores: private
 		Nombre: name
-		Descripcion: /**
-     * Nombre del usuario.
-     */
+		Descripcion: No hay descripcion.
 		Tipo: String
 		Modificadores: private
-		Nombre: email
-		Descripcion: /**
-     * Dirección de correo electrónico del usuario.
-     */
+		Nombre: agency
+		Descripcion: No hay descripcion.
 		Tipo: String
 		Modificadores: private
 	Metodos:
-		Nombre: getId
-		Descripcion: /**
-     * Obtiene el identificador único del usuario.
-     * @return El identificador único del usuario.
-     */
-		Tipo de Retorno: String
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
 		Nombre: getName
 		Descripcion: /**
-     * Obtiene el nombre del usuario.
-     * @return El nombre del usuario.
+     * Obtiene el nombre de la nave espacial.
+     * @return El nombre de la nave espacial.
      */
 		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
 		Descripcion de Parametros: 
-		Nombre: setName
+		Nombre: getAgency
 		Descripcion: /**
-     * Establece el nombre del usuario.
-     * @param name El nuevo nombre para el usuario.
-     */
-		Tipo de Retorno: void
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
-		Nombre: getEmail
-		Descripcion: /**
-     * Obtiene la dirección de correo electrónico del usuario.
-     * @return La dirección de correo electrónico del usuario.
+     * Obtiene la agencia a la que pertenece la nave espacial.
+     * @return La agencia a la que pertenece la nave espacial.
      */
 		Tipo de Retorno: String
 		Modificadores: public
 		Parametros: 
 		Descripcion de Parametros: 
-		Nombre: setEmail
+		Nombre: getMissionDescription
 		Descripcion: /**
-     * Establece la dirección de correo electrónico del usuario.
-     * @param email La nueva dirección de correo electrónico del usuario.
+     * Método abstracto que debe ser implementado por las subclases para describir la misión de la nave espacial.
+     * @return La descripción de la misión.
      */
-		Tipo de Retorno: void
-		Modificadores: public
+		Tipo de Retorno: String
+		Modificadores: public abstract
 		Parametros: 
 		Descripcion de Parametros: 
-Clase: AdminUser
+Clase: Rocket
 	Descripcion: /**
- * Clase que representa a un usuario administrador, que extiende a la clase User.
+ * Clase que representa un cohete.
+ */
+	Metodos:
+		Nombre: getMissionDescription
+		Descripcion: /**
+     * Describe la misión del cohete.
+     * @return La descripción de la misión del cohete.
+     */
+		Tipo de Retorno: String
+		Modificadores: @Override public
+		Parametros: 
+		Descripcion de Parametros: 
+Clase: Satellite
+	Descripcion: /**
+ * Clase que representa un satélite.
+ */
+	Metodos:
+		Nombre: getMissionDescription
+		Descripcion: /**
+     * Describe la misión del satélite.
+     * @return La descripción de la misión del satélite.
+     */
+		Tipo de Retorno: String
+		Modificadores: @Override public
+		Parametros: 
+		Descripcion de Parametros: 
+Clase: Mission
+	Descripcion: /**
+ * Clase que representa una misión espacial.
  */
 	Campos:
-		Nombre: adminLevel
-		Descripcion: /**
-     * Nivel de administración del usuario.
-     */
+		Nombre: missionName
+		Descripcion: No hay descripcion.
 		Tipo: String
 		Modificadores: private
-	Metodos:
-		Nombre: getAdminLevel
-		Descripcion: /**
-     * Obtiene el nivel de administración del usuario.
-     * @return El nivel de administración del usuario.
-     */
-		Tipo de Retorno: String
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
-		Nombre: setAdminLevel
-		Descripcion: /**
-     * Establece el nivel de administración del usuario.
-     * @param adminLevel El nuevo nivel de administración para el usuario.
-     */
-		Tipo de Retorno: void
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
-Clase: UserService
-	Descripcion: /**
- * Clase de servicio que gestiona las operaciones con los usuarios.
- */
-	Campos:
-		Nombre: users
-		Descripcion: /**
-     * Colección de usuarios gestionada por el servicio.
-     */
-		Tipo: Map<String,User>
+		Nombre: spacecraft
+		Descripcion: No hay descripcion.
+		Tipo: Spacecraft
+		Modificadores: private
+		Nombre: payloads
+		Descripcion: No hay descripcion.
+		Tipo: List<Spacecraft>
 		Modificadores: private
 	Metodos:
-		Nombre: addUser
+		Nombre: addPayload
 		Descripcion: /**
-     * Añade un nuevo usuario al repositorio.
-     * @param user El usuario a añadir.
+     * Añade una carga útil a la misión.
+     * @param payload La nave espacial que se añadirá como carga útil.
      */
 		Tipo de Retorno: void
-		Modificadores: @Override public
+		Modificadores: public
 		Parametros: 
 		Descripcion de Parametros: 
-		Nombre: getUserInfo
+		Nombre: getMissionDetails
 		Descripcion: /**
-     * Obtiene la información de un usuario basado en su identificador.
-     * @param userId El identificador del usuario.
-     * @return La información del usuario.
+     * Obtiene los detalles de la misión.
+     * @return Los detalles de la misión.
      */
 		Tipo de Retorno: String
-		Modificadores: @Override public
-		Parametros: 
-		Descripcion de Parametros: 
-		Nombre: removeUser
-		Descripcion: /**
-     * Elimina un usuario del repositorio.
-     * @param userId El identificador del usuario a eliminar.
-     */
-		Tipo de Retorno: void
-		Modificadores: @Override public
-		Parametros: 
-		Descripcion de Parametros: 
-		Nombre: getAllUsers
-		Descripcion: /**
-     * Obtiene la lista de todos los usuarios.
-     * @return La lista de todos los usuarios.
-     */
-		Tipo de Retorno: List<User>
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
-Clase: AuditService
-	Descripcion: /**
- * Clase de servicio que gestiona el registro de auditorías.
- */
-	Campos:
-		Nombre: auditLogs
-		Descripcion: /**
-     * Lista de registros de auditoría.
-     */
-		Tipo: List<String>
-		Modificadores: private
-	Metodos:
-		Nombre: logAction
-		Descripcion: /**
-     * Registra una acción en el sistema.
-     * @param action La acción a registrar.
-     */
-		Tipo de Retorno: void
-		Modificadores: public
-		Parametros: 
-		Descripcion de Parametros: 
-		Nombre: getLogs
-		Descripcion: /**
-     * Obtiene todos los registros de auditoría.
-     * @return La lista de registros de auditoría.
-     */
-		Tipo de Retorno: List<String>
 		Modificadores: public
 		Parametros: 
 		Descripcion de Parametros: 

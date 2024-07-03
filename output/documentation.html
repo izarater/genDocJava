@@ -1,63 +1,32 @@
-<!DOCTYPE html><html><head><title>Documentacion de Codigo Java</title><style>body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }h1 { color: #333; }h2 { color: #666; }h3 { color: #888; }ul { list-style-type: none; padding: 0; }li { margin: 5px 0; }pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }.container { max-width: 900px; margin: 0 auto; }.class-diagram, .sequence-diagram, .activity-diagram { text-align: center; }.nav { margin-bottom: 20px; }.nav a { margin-right: 10px; }</style></head><body><div class='container'><h1>Documentacion de Codigo Java</h1><div class='nav'><a href='#project-info'>Informacion General</a><a href='#class-diagram'>Diagrama de Clases</a><a href='#sequence-diagram'>Diagrama de Secuencia</a><a href='#activity-diagram'>Diagrama de Actividad</a><a href='#code-structure'>Estructura del Codigo</a><a href='#coverage-report'>Reporte de Cobertura</a></div><h2 id='project-info'>Informacion General del Proyecto</h2><ul><li><strong>Nombre del Proyecto:</strong> UserManagementSystem2</li><li><strong>Descripcion:</strong> Documentacion generada para el archivo input/UserManagementSystem2.java</li></ul><h2 id='class-diagram'>Diagrama de Clases</h2><div class='class-diagram'><img src='classDiagram.png' alt='Diagrama de Clases'></div><h2 id='sequence-diagram'>Diagrama de Secuencia</h2><div class='sequence-diagram'><img src='sequenceDiagram.png' alt='Diagrama de Secuencia'></div><h2 id='activity-diagram'>Diagrama de Actividad</h2><div class='activity-diagram'><img src='activityDiagram.png' alt='Diagrama de Actividad'></div><h2 id='code-structure'>Estructura del Codigo</h2><h3>Clase: UserManagementSystem2</h3><p><strong>Descripcion:</strong> <pre>/**
- * Clase principal que contiene el punto de entrada al sistema de gestión de usuarios.
- */</pre></p><p><strong>Dependencias:</strong> </p><h4>Metodos</h4><p><strong>Nombre:</strong> main</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> public static</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: User</h3><p><strong>Descripcion:</strong> <pre>/**
- * Clase que representa a un usuario en el sistema.
- */</pre></p><p><strong>Dependencias:</strong> </p><h4>Campos</h4><p><strong>Nombre:</strong> id</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Identificador único del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><p><strong>Nombre:</strong> name</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Nombre del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><p><strong>Nombre:</strong> email</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Dirección de correo electrónico del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> getId</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene el identificador único del usuario.
-     * @return El identificador único del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getName</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene el nombre del usuario.
-     * @return El nombre del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> setName</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Establece el nombre del usuario.
-     * @param name El nuevo nombre para el usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getEmail</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene la dirección de correo electrónico del usuario.
-     * @return La dirección de correo electrónico del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> setEmail</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Establece la dirección de correo electrónico del usuario.
-     * @param email La nueva dirección de correo electrónico del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: AdminUser</h3><p><strong>Descripcion:</strong> <pre>/**
- * Clase que representa a un usuario administrador, que extiende a la clase User.
- */</pre></p><p><strong>Dependencias:</strong> User</p><h4>Campos</h4><p><strong>Nombre:</strong> adminLevel</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Nivel de administración del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> getAdminLevel</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene el nivel de administración del usuario.
-     * @return El nivel de administración del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> setAdminLevel</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Establece el nivel de administración del usuario.
-     * @param adminLevel El nuevo nivel de administración para el usuario.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: UserService</h3><p><strong>Descripcion:</strong> <pre>/**
- * Clase de servicio que gestiona las operaciones con los usuarios.
- */</pre></p><p><strong>Dependencias:</strong> UserRepository</p><h4>Campos</h4><p><strong>Nombre:</strong> users</p><p><strong>Tipo:</strong> Map<String,User></p><p><strong>Descripcion:</strong> <pre>/**
-     * Colección de usuarios gestionada por el servicio.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> addUser</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Añade un nuevo usuario al repositorio.
-     * @param user El usuario a añadir.
-     */</pre></p><p><strong>Modificadores:</strong> @Override public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getUserInfo</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene la información de un usuario basado en su identificador.
-     * @param userId El identificador del usuario.
-     * @return La información del usuario.
-     */</pre></p><p><strong>Modificadores:</strong> @Override public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> removeUser</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Elimina un usuario del repositorio.
-     * @param userId El identificador del usuario a eliminar.
-     */</pre></p><p><strong>Modificadores:</strong> @Override public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getAllUsers</p><p><strong>Tipo de Retorno:</strong> List<User></p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene la lista de todos los usuarios.
-     * @return La lista de todos los usuarios.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: AuditService</h3><p><strong>Descripcion:</strong> <pre>/**
- * Clase de servicio que gestiona el registro de auditorías.
- */</pre></p><p><strong>Dependencias:</strong> </p><h4>Campos</h4><p><strong>Nombre:</strong> auditLogs</p><p><strong>Tipo:</strong> List<String></p><p><strong>Descripcion:</strong> <pre>/**
-     * Lista de registros de auditoría.
-     */</pre></p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> logAction</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
-     * Registra una acción en el sistema.
-     * @param action La acción a registrar.
-     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getLogs</p><p><strong>Tipo de Retorno:</strong> List<String></p><p><strong>Descripcion:</strong> <pre>/**
-     * Obtiene todos los registros de auditoría.
-     * @return La lista de registros de auditoría.
+<!DOCTYPE html><html><head><title>Documentacion de Codigo Java</title><style>body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }h1 { color: #333; }h2 { color: #666; }h3 { color: #888; }ul { list-style-type: none; padding: 0; }li { margin: 5px 0; }pre { background: #f4f4f4; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }.container { max-width: 900px; margin: 0 auto; }.class-diagram, .sequence-diagram, .activity-diagram { text-align: center; }.nav { margin-bottom: 20px; }.nav a { margin-right: 10px; }</style></head><body><div class='container'><h1>Documentacion de Codigo Java</h1><div class='nav'><a href='#project-info'>Informacion General</a><a href='#class-diagram'>Diagrama de Clases</a><a href='#sequence-diagram'>Diagrama de Secuencia</a><a href='#activity-diagram'>Diagrama de Actividad</a><a href='#code-structure'>Estructura del Codigo</a><a href='#coverage-report'>Reporte de Cobertura</a></div><h2 id='project-info'>Informacion General del Proyecto</h2><ul><li><strong>Nombre del Proyecto:</strong> AerospaceManagementSystem</li><li><strong>Descripcion:</strong> Documentacion generada para el archivo input/AerospaceManagementSystem.java</li></ul><h2 id='class-diagram'>Diagrama de Clases</h2><div class='class-diagram'><img src='classDiagram.png' alt='Diagrama de Clases'></div><h2 id='sequence-diagram'>Diagrama de Secuencia</h2><div class='sequence-diagram'><img src='sequenceDiagram.png' alt='Diagrama de Secuencia'></div><h2 id='activity-diagram'>Diagrama de Actividad</h2><div class='activity-diagram'><img src='activityDiagram.png' alt='Diagrama de Actividad'></div><h2 id='code-structure'>Estructura del Codigo</h2><h3>Clase: AerospaceManagementSystem</h3><p><strong>Descripcion:</strong> <pre>/**
+ * Clase principal que contiene el punto de entrada al sistema de gestión aeroespacial.
+ */</pre></p><p><strong>Dependencias:</strong> </p><h4>Metodos</h4><p><strong>Nombre:</strong> main</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> public static</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: Spacecraft</h3><p><strong>Descripcion:</strong> <pre>/**
+ * Clase que representa una nave espacial.
+ */</pre></p><p><strong>Dependencias:</strong> </p><h4>Campos</h4><p><strong>Nombre:</strong> name</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> private</p><p><strong>Nombre:</strong> agency</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> getName</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Obtiene el nombre de la nave espacial.
+     * @return El nombre de la nave espacial.
+     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getAgency</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Obtiene la agencia a la que pertenece la nave espacial.
+     * @return La agencia a la que pertenece la nave espacial.
+     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getMissionDescription</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Método abstracto que debe ser implementado por las subclases para describir la misión de la nave espacial.
+     * @return La descripción de la misión.
+     */</pre></p><p><strong>Modificadores:</strong> public abstract</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: Rocket</h3><p><strong>Descripcion:</strong> <pre>/**
+ * Clase que representa un cohete.
+ */</pre></p><p><strong>Dependencias:</strong> Spacecraft</p><h4>Metodos</h4><p><strong>Nombre:</strong> getMissionDescription</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Describe la misión del cohete.
+     * @return La descripción de la misión del cohete.
+     */</pre></p><p><strong>Modificadores:</strong> @Override public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: Satellite</h3><p><strong>Descripcion:</strong> <pre>/**
+ * Clase que representa un satélite.
+ */</pre></p><p><strong>Dependencias:</strong> Spacecraft</p><h4>Metodos</h4><p><strong>Nombre:</strong> getMissionDescription</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Describe la misión del satélite.
+     * @return La descripción de la misión del satélite.
+     */</pre></p><p><strong>Modificadores:</strong> @Override public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h3>Clase: Mission</h3><p><strong>Descripcion:</strong> <pre>/**
+ * Clase que representa una misión espacial.
+ */</pre></p><p><strong>Dependencias:</strong> </p><h4>Campos</h4><p><strong>Nombre:</strong> missionName</p><p><strong>Tipo:</strong> String</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> private</p><p><strong>Nombre:</strong> spacecraft</p><p><strong>Tipo:</strong> Spacecraft</p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> private</p><p><strong>Nombre:</strong> payloads</p><p><strong>Tipo:</strong> List<Spacecraft></p><p><strong>Descripcion:</strong> No hay descripcion.</p><p><strong>Modificadores:</strong> private</p><h4>Metodos</h4><p><strong>Nombre:</strong> addPayload</p><p><strong>Tipo de Retorno:</strong> void</p><p><strong>Descripcion:</strong> <pre>/**
+     * Añade una carga útil a la misión.
+     * @param payload La nave espacial que se añadirá como carga útil.
+     */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><p><strong>Nombre:</strong> getMissionDetails</p><p><strong>Tipo de Retorno:</strong> String</p><p><strong>Descripcion:</strong> <pre>/**
+     * Obtiene los detalles de la misión.
+     * @return Los detalles de la misión.
      */</pre></p><p><strong>Modificadores:</strong> public</p><p><strong>Parametros:</strong> </p><p><strong>Descripcion de Parametros:</strong> </p><h2 id='comments'>Comentarios y Anotaciones</h2><div><textarea id='comments-section' rows='10' cols='100' placeholder='Añadir comentarios aquí...'></textarea></div><h2 id='coverage-report'>Reporte de Cobertura</h2><div class='coverage-report'><iframe src='jacoco-report/index.html' style='width:100%; height:400px; border:none;'></iframe></body></html>

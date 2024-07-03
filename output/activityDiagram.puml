@@ -1,27 +1,22 @@
 @startuml
 start
-:userService.addUser(user);;
-:userService.addUser(admin);;
-:System.out.println(userService.getUserInfo("1"));;
-:System.out.println(userService.getUserInfo("2"));;
-:auditService.logAction("User 1 logged in.");;
-:auditService.logAction("Admin 2 performed maintenance.");;
-:System.out.println(auditService.getLogs());;
-:returnid;;
+:mission.addPayload(satellite);;
+:System.out.println(mission.getMissionDetails());;
 :returnname;;
-:this.name=name;;
-:returnemail;;
-:this.email=email;;
-:returnadminLevel;;
-:this.adminLevel=adminLevel;;
-:users.put(user.getId(),user);;
-:if(user!=null){return"User ID: "+user.getId()+", Name: "+user.getName()+", Email: "+user.getEmail();}else{return"User not found";};
-:return"User ID: "+user.getId()+", Name: "+user.getName()+", Email: "+user.getEmail();;
-:{return"User not found";};
-:return"User not found";;
-:users.remove(userId);;
-:returnnewArrayList<>(users.values());;
-:auditLogs.add(action);;
-:returnauditLogs;;
+:returnagency;;
+:return"Este cohete lanzará cargas útiles al espacio.";;
+:return"Este satélite observará y recopilará datos desde el espacio.";;
+:payloads.add(payload);;
+:details.append("Misión: ").append(missionName).append("\n");;
+:details.append("Nave Principal: ").append(spacecraft.getName()).append(" - ").append(spacecraft.getAgency()).append("\n");;
+:details.append("Descripción: ").append(spacecraft.getMissionDescription()).append("\n");;
+:if(!payloads.isEmpty()){details.append("Cargas Útiles:\n");for(Spacecraftpayload:payloads){details.append("  - ").append(payload.getName()).append(" - ").append(payload.getAgency()).append("\n");details.append("    Descripción: ").append(payload.getMissionDescription()).append("\n");}};
+:{details.append("Cargas Útiles:\n");for(Spacecraftpayload:payloads){details.append("  - ").append(payload.getName()).append(" - ").append(payload.getAgency()).append("\n");details.append("    Descripción: ").append(payload.getMissionDescription()).append("\n");}};
+:details.append("Cargas Útiles:\n");;
+:for(Spacecraftpayload:payloads){details.append("  - ").append(payload.getName()).append(" - ").append(payload.getAgency()).append("\n");details.append("    Descripción: ").append(payload.getMissionDescription()).append("\n");};
+:{details.append("  - ").append(payload.getName()).append(" - ").append(payload.getAgency()).append("\n");details.append("    Descripción: ").append(payload.getMissionDescription()).append("\n");};
+:details.append("  - ").append(payload.getName()).append(" - ").append(payload.getAgency()).append("\n");;
+:details.append("    Descripción: ").append(payload.getMissionDescription()).append("\n");;
+:returndetails.toString();;
 stop
 @enduml
